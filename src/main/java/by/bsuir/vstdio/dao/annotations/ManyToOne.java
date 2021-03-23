@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OneToMany {
+public @interface ManyToOne {
     String referenceTable() default "";
     String referenceKey() default "";
     String referenceTableKey() default "";

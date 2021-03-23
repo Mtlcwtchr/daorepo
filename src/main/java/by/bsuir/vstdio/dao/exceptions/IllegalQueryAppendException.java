@@ -1,6 +1,6 @@
 package by.bsuir.vstdio.dao.exceptions;
 
-public class IllegalQueryAppendException extends Exception{
+public class IllegalQueryAppendException extends RuntimeException{
     public IllegalQueryAppendException() {
         super();
     }

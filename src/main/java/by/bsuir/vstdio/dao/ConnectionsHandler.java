@@ -12,7 +12,7 @@ public enum ConnectionsHandler {
     @NotNull
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/epam_cafe?serverTimezone=Europe/Moscow&useSSL=false&allowPublicKeyRetrieval=true",
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/web_cinema?serverTimezone=Europe/Moscow&useSSL=false&allowPublicKeyRetrieval=true",
                     "root",
                     "!Fib1235813");
         } catch (SQLException ex) {

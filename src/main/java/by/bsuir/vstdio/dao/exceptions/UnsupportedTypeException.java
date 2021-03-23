@@ -1,6 +1,6 @@
 package by.bsuir.vstdio.dao.exceptions;
 
-public class UnsupportedTypeException extends Exception {
+public class UnsupportedTypeException extends RuntimeException {
     public UnsupportedTypeException() {
         super();
     }

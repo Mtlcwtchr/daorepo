@@ -1,5 +1,7 @@
 package by.bsuir.vstdio.dao.annotations;
 
+import by.bsuir.vstdio.entity.Entity;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,5 +16,5 @@ public @interface ManyToMany {
     String intermediateSelfKey() default "";
     String intermediateReferenceKey() default "";
     String selfReferenceKey() default "";
-    Class<?> referenceEntity() default Object.class;
+    Class<? extends Entity> referenceEntity() default Entity.class;
 }
