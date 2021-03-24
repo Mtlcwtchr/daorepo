@@ -48,7 +48,7 @@ public class QueryBuilder {
 
     public static QueryBuilder delete(String tableName) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        queryBuilder.query.append("DELETE FROM ").append(tableName);
+        queryBuilder.query.append("DELETE FROM ").append(tableName).append(" ");
         return queryBuilder;
     }
 

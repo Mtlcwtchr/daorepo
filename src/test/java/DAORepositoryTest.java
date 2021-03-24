@@ -10,29 +10,29 @@ public class DAORepositoryTest {
 
     @Test
     public void DAORepositoryTest_TestFindById() {
-        DAORepository<User> userRepository = new DAORepository<>();
-        Optional<User> user = userRepository.findById(1, User.class);
+        DAORepository<User> userRepository = new DAORepository<>(User.class);
+        Optional<User> user = userRepository.findById(1);
         user.ifPresent(System.out::println);
     }
 
     @Test
     public void DAORepositoryTest_TestFindByIdWithOneToOne() {
-        DAORepository<Client> clientRepository = new DAORepository<>();
-        Optional<Client> client = clientRepository.findById(1, Client.class);
+        DAORepository<Client> clientRepository = new DAORepository<>(Client.class);
+        Optional<Client> client = clientRepository.findById(1);
         client.ifPresent(System.out::println);
     }
 
     @Test
     public void DAORepositoryTest_TestFindByIdWithManyToOne() {
-        DAORepository<Client> clientRepository = new DAORepository<>();
-        Optional<Client> client = clientRepository.findById(1, Client.class);
+        DAORepository<Client> clientRepository = new DAORepository<>(Client.class);
+        Optional<Client> client = clientRepository.findById(1);
         client.ifPresent(System.out::println);
     }
 
     @Test
     public void DAORepositoryTest_TestFindByIdWithManyToMany() {
-        DAORepository<Movie> movieRepository = new DAORepository<>();
-        Optional<Movie> movie = movieRepository.findById(1, Movie.class);
+        DAORepository<Movie> movieRepository = new DAORepository<>(Movie.class);
+        Optional<Movie> movie = movieRepository.findById(1);
         movie.ifPresent(System.out::println);
     }
 
@@ -50,7 +50,7 @@ public class DAORepositoryTest {
         client.setPhone("p");
         client.setUser(user);
 
-        DAORepository<Client> clientRepository = new DAORepository<>();
+        DAORepository<Client> clientRepository = new DAORepository<>(Client.class);
         Optional<Client> saved = clientRepository.save(client);
         saved.ifPresent(System.out::println);
     }
@@ -89,7 +89,7 @@ public class DAORepositoryTest {
 
         personalizedGroup.setClients(List.of(client, client1));
 
-        DAORepository<PersonalizedGroup> groupRepository = new DAORepository<>();
+        DAORepository<PersonalizedGroup> groupRepository = new DAORepository<>(PersonalizedGroup.class);
         Optional<PersonalizedGroup> saved = groupRepository.save(personalizedGroup);
         saved.ifPresent(System.out::println);
     }
@@ -126,20 +126,20 @@ public class DAORepositoryTest {
         personalizedGroup.setOscarValuable(true);
         personalizedGroup.setRatingValuable(false);
 
-        DAORepository<Client> clientRepository = new DAORepository<>();
+        DAORepository<Client> clientRepository = new DAORepository<>(Client.class);
         Optional<Client> savedClient = clientRepository.save(client);
         Optional<Client> savedClient1 = clientRepository.save(client1);
 
         personalizedGroup.setClients(List.of(savedClient.orElseThrow(), savedClient1.orElseThrow()));
 
-        DAORepository<PersonalizedGroup> groupRepository = new DAORepository<>();
+        DAORepository<PersonalizedGroup> groupRepository = new DAORepository<>(PersonalizedGroup.class);
         Optional<PersonalizedGroup> saved = groupRepository.save(personalizedGroup);
         saved.ifPresent(System.out::println);
     }
 
     @Test
     public void DAORepositoryTest_TestInsertManyToMany() {
-        DAORepository<Movie> movieRepository = new DAORepository<>();
+        DAORepository<Movie> movieRepository = new DAORepository<>(Movie.class);
 
         Genre g1 = new Genre();
         Genre g2 = new Genre();
@@ -163,10 +163,10 @@ public class DAORepositoryTest {
 
     @Test
     public void DAORepositoryTest_TestInsertManyToManyExistingDependencies() {
-        DAORepository<Movie> movieRepository = new DAORepository<>();
-        DAORepository<Genre> genreRepository = new DAORepository<>();
+        DAORepository<Movie> movieRepository = new DAORepository<>(Movie.class);
+        DAORepository<Genre> genreRepository = new DAORepository<>(Genre.class);
 
-        List<Genre> genres = genreRepository.findAll(Genre.class);
+        List<Genre> genres = genreRepository.findAll();
         Movie movie = new Movie();
         movie.setTitle("MOVIE");
         movie.setReleaseDate(new Date());
@@ -178,6 +178,13 @@ public class DAORepositoryTest {
 
         Optional<Movie> saved = movieRepository.save(movie);
         saved.ifPresent(System.out::println);
+    }
+
+    @Test
+    public void DAORepositoryTest_TestDelete() {
+        DAORepository<Movie> movieRepository = new DAORepository<>(Movie.class);
+        List<Movie> movies = movieRepository.findAll();
+        movies.forEach(movie -> movieRepository.delete(movie.getID()));
     }
 
 }
